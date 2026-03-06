@@ -1,0 +1,50 @@
+# Compiled Java class files
+*.class
+
+# Log files
+*.log
+
+# Package files
+*.jar
+*.war
+*.ear
+
+# Maven build directory
+/target/
+
+# IntelliJ output directory
+/out/
+
+# IDE specific files
+/out/
+
+# IDE specific files
+# IntelliJ
+.idea/
+*.iml
+*.iws
+# Eclipse
+.classpath
+.project
+.settings/
+# NetBeans
+/nbproject/private/
+/build/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+# Virtual machine crash logs
+hs_err_pid*
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
