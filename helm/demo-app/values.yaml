@@ -1,9 +1,9 @@
 replicaCount: 2
 
 image:
-  repository: localhost:5000/demo-app
+  repository: demo-app
   pullPolicy: IfNotPresent
-  tag: "0.0.1"
+  tag: "latest"
 
 service:
   type: ClusterIP
@@ -25,4 +25,4 @@ resources:
     memory: 256Mi
 
 app:
-  version: "0.0.1"
+  version: "latest"
