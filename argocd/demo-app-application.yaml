@@ -7,7 +7,7 @@ spec:
   project: default
   source:
     repoURL: https://github.com/le-se-de/devops-github-project.git
-    targetRevision: main
+    targetRevision: master
     path: helm/demo-app
     helm:
       valueFiles:
