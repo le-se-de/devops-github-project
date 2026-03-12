@@ -37,4 +37,9 @@ public class HelloController {
         response.put("message", "DevOps practice project for Jenkins + ArgoCD + Helm");
         return response;
     }
+
+    @GetMapping("/test")
+    public String test() {
+        return "배포 성공!";
+    }
 }
