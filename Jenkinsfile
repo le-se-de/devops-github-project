@@ -7,6 +7,7 @@ pipeline {
         CHART_FILE = 'helm/demo-app/values.yaml'
         GIT_USER_NAME = 'jenkins'
         GIT_USER_EMAIL = 'jenkins@example.local'
+        JAVA_HOME = '/opt/java/openjdk'
     }
 
     tools {
@@ -14,6 +15,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -32,36 +34,28 @@ pipeline {
             }
         }
 
-        stage('Docker Build') {
+        stage('Archive Artifact') {
             steps {
-                sh 'docker build -t ${IMAGE_NAME}:${IMAGE_TAG} demo-app'
-            }
-        }
-
-        stage('Docker Push') {
-            steps {
-                sh 'docker push ${IMAGE_NAME}:${IMAGE_TAG}'
+                archiveArtifacts artifacts: 'demo-app/target/*.jar', fingerprint: true
             }
         }
 
         stage('Update Helm Values') {
             steps {
-                sh "sed -i 's/tag: .*/tag: \"${IMAGE_TAG}\"/' ${CHART_FILE}"
-                sh 'git config user.name "${GIT_USER_NAME}"'
-                sh 'git config user.email "${GIT_USER_EMAIL}"'
-                sh 'git add ${CHART_FILE}'
-                sh 'git commit -m "chore: update image tag to ${IMAGE_TAG}" || true'
+                sh """
+                sed -i 's/tag: .*/tag: "${IMAGE_TAG}"/' ${CHART_FILE}
+                git config user.name "${GIT_USER_NAME}"
+                git config user.email "${GIT_USER_EMAIL}"
+                git add ${CHART_FILE}
+                git commit -m "chore: update image tag to ${IMAGE_TAG}" || true
+                """
             }
         }
 
         stage('Push GitOps Change') {
-            when {
-                expression { return env.BRANCH_NAME != null }
-            }
             steps {
                 sh 'git push origin HEAD:${BRANCH_NAME}'
             }
         }
     }
 }
-
