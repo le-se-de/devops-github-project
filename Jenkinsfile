@@ -60,6 +60,9 @@ pipeline {
                     passwordVariable: 'GIT_PASSWORD'
                 )]) {
                     sh '''
+                    echo $GIT_USERNAME
+                    '''
+                    sh '''
                     git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/le-se-de/devops-github-project.git
                     git push origin HEAD:master
                     '''
