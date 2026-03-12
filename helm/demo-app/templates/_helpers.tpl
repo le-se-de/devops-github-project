@@ -1,3 +1,7 @@
+{{- define "demo-app.labels" -}}
+app: {{ include "demo-app.name" . }}
+{{- end -}}
+
 {{- define "demo-app.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" -}}
 {{- end -}}

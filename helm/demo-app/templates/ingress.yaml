@@ -16,4 +16,4 @@ spec:
                 name: {{ include "demo-app.fullname" . }}
                 port:
                   number: {{ .Values.service.port }}
-{{- end }}
+  {{- end }}
