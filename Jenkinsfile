@@ -54,7 +54,7 @@ pipeline {
 
         stage('Push GitOps Change') {
             steps {
-                sh 'git push origin HEAD:${BRANCH_NAME}'
+                sh 'git push origin HEAD:master'
             }
         }
     }
