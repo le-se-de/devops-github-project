@@ -53,7 +53,7 @@ pipeline {
         }
 
         stage('Push GitOps Change') {
-            steps {
+            steps { 
                 withCredentials([usernamePassword(
                     credentialsId: 'tkn',
                     usernameVariable: 'GIT_USERNAME',
