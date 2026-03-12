@@ -40,6 +40,6 @@ public class HelloController {
 
     @GetMapping("/test")
     public String test() {
-        return "배포 성공!";
+        return "추가 배포 성공!";
     }
 }
