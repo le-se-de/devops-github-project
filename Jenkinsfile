@@ -10,7 +10,6 @@ pipeline {
     }
 
     tools {
-        jdk 'jdk17'
         maven 'maven3'
     }
 
@@ -24,7 +23,11 @@ pipeline {
         stage('Build') {
             steps {
                 dir('demo-app') {
-                    sh 'mvn clean package -DskipTests'
+                    sh '''
+                    export JAVA_HOME=/opt/java/openjdk
+                    export PATH=$JAVA_HOME/bin:$PATH
+                    mvn clean package -DskipTests
+                    '''
                 }
             }
         }
