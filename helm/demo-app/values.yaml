@@ -3,7 +3,7 @@ replicaCount: 2
 image:
   repository: demo-app
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "16"
 
 service:
   type: ClusterIP
