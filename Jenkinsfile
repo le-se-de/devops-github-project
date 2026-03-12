@@ -54,7 +54,16 @@ pipeline {
 
         stage('Push GitOps Change') {
             steps {
-                sh 'git push origin HEAD:master'
+                withCredentials([usernamePassword(
+                    credentialsId: 'tkn',
+                    usernameVariable: '95sdlee@gmail.com',
+                    passwordVariable: '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'
+                )]) {
+                    sh '''
+                    git remote set-url origin https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/le-se-de/devops-github-project.git
+                    git push origin HEAD:master
+                    '''
+                }
             }
         }
     }
