@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE_NAME = 'localhost:5000/demo-app'
+        IMAGE_NAME = 'registry.default.svc.cluster.local:5000/demo-app'
         IMAGE_TAG = "${BUILD_NUMBER}"
         CHART_FILE = 'helm/demo-app/values.yaml'
         GIT_USER_NAME = 'jenkins'
