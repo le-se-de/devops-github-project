@@ -1,4 +1,16 @@
 controller:
+  image:
+    registry: docker.io
+    repository: jenkins/jenkins
+    tag: jdk21
+    pullPolicy: Always
+
+  installPlugins:
+    - kubernetes
+    - workflow-aggregator
+    - git
+    - docker-workflow
+
   containerEnv:
     - name: DOCKER_HOST
       value: unix:///var/run/docker.sock
@@ -11,3 +23,12 @@ controller:
   volumeMounts:
     - name: docker-sock
       mountPath: /var/run/docker.sock
+
+  initContainers:
+    - name: install-docker-cli
+      image: docker:24
+      command:
+        - sh
+        - -c
+        - |
+          cp /usr/local/bin/docker /usr/local/bin/docker

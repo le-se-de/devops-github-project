@@ -1,22 +1,38 @@
 pipeline {
 
     agent {
-        docker {
-        image 'docker:24'
-        args '-v /var/run/docker.sock:/var/run/docker.sock'
+        kubernetes {
+            yaml """
+            apiVersion: v1
+            kind: Pod
+            spec:
+              containers:
+              - name: docker
+                image: docker:24
+                command:
+                - cat
+                tty: true
+                volumeMounts:
+                - name: docker-sock
+                  mountPath: /var/run/docker.sock
+              volumes:
+              - name: docker-sock
+                hostPath:
+                  path: /var/run/docker.sock
+            """
         }
     }
 
     environment {
-    IMAGE_NAME = 'demo-app'
-    IMAGE_TAG = "${BUILD_NUMBER}"
-    CHART_FILE = 'helm/demo-app/values.yaml'
-    GIT_USER_NAME = 'jenkins'
-    GIT_USER_EMAIL = 'jenkins@example.local'
+        IMAGE_NAME = 'demo-app'
+        IMAGE_TAG = "${BUILD_NUMBER}"
+        CHART_FILE = 'helm/demo-app/values.yaml'
+        GIT_USER_NAME = 'jenkins'
+        GIT_USER_EMAIL = 'jenkins@example.local'
     }
 
     tools {
-    maven 'maven3'
+        maven 'maven3'
     }
 
     stages {
@@ -43,8 +59,10 @@ pipeline {
 
         stage('Docker Build') {
             steps {
-                dir('demo-app') {
-                    sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                container('docker') {
+                    dir('demo-app') {
+                        sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+                    }
                 }
             }
         }
@@ -77,5 +95,4 @@ pipeline {
         }
 
     }
-
 }
