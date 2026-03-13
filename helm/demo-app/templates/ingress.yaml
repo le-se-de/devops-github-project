@@ -9,8 +9,10 @@ metadata:
 annotations:
   {{ toYaml . | nindent 4 }}
   {{- end }}
+
 spec:
   ingressClassName: {{ .Values.ingress.className | default "nginx" }}
+
   rules:
     - host: {{ .Values.ingress.host }}
       http:

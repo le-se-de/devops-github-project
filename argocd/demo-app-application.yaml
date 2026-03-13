@@ -5,19 +5,26 @@ metadata:
   namespace: argocd
 spec:
   project: default
+
   source:
     repoURL: https://github.com/le-se-de/devops-github-project.git
-    targetRevision: master
+    targetRevision: HEAD
     path: helm/demo-app
     helm:
+      releaseName: demo-app
       valueFiles:
         - values.yaml
+
   destination:
     server: https://kubernetes.default.svc
     namespace: demo
+
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+      allowEmpty: false
     syncOptions:
       - CreateNamespace=true
+
+  revisionHistoryLimit: 10
