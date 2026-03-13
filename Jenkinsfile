@@ -1,7 +1,7 @@
 pipeline {
 agent any
 
-```
+
 environment {
     IMAGE_NAME = 'demo-app'
     IMAGE_TAG = "${BUILD_NUMBER}"
