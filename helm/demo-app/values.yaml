@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: le-se-de/demo-app
+  repository: lazyguyshit/le-se-de
   pullPolicy: Always
   tag: "latest"
 
