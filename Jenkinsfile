@@ -12,11 +12,13 @@ spec:
     command:
     - cat
     tty: true
+    securityContext:
+      privileged: true
     volumeMounts:
-    - name: docker-sock
+    - name: dockersock
       mountPath: /var/run/docker.sock
   volumes:
-  - name: docker-sock
+  - name: dockersock
     hostPath:
       path: /var/run/docker.sock
 """
