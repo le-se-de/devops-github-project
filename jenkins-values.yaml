@@ -1,0 +1,13 @@
+controller:
+  containerEnv:
+    - name: DOCKER_HOST
+      value: unix:///var/run/docker.sock
+
+  volumes:
+    - name: docker-sock
+      hostPath:
+        path: /var/run/docker.sock
+
+  volumeMounts:
+    - name: docker-sock
+      mountPath: /var/run/docker.sock
