@@ -20,7 +20,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build Image
-        run: docker build -t lazyguyshit/le-se-de:latest ./demo-app
+        run: docker build -t lazyguyshit/demo-app:latest ./demo-app
 
       - name: Push Image
-        run: docker push lazyguyshit/le-se-de:latest
+        run: docker push lazyguyshit/demo-app:latest
